@@ -104,7 +104,6 @@ class StartupManager {
                 }
                 else if (input == "assigncountries") {
                     cout << "Assigning countries" << "\n";
-                    validateMap();
                     break;
                 }
                 else {
