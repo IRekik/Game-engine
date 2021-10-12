@@ -7,9 +7,9 @@ enum GameState {startup,play};
 enum StartupManagerState {start, mapLoaded,mapValidated, playersAdded, finishSMS};
 enum PlayManagerState {assignReinforcement, issueOrders, executeOrders, win, finishPMS};
 
-map <GameState, string> gsmap = {{startup, "startup"}, {play, "play"}};
-map <StartupManagerState, string> smsmap = {{start, "start"}, {mapLoaded, "mapLoaded"}, {mapValidated, "mapValidated"}, {playersAdded, "playersAdded"}, {finishSMS, "finishSMS"}};
-map <PlayManagerState, string> pmsmap = {{assignReinforcement,"assignReinforcement"},{issueOrders, "issueOrders"}, {executeOrders, "executeOrders"}, {win, "win"}, {finishPMS, "finishPMS"}};
+const map <GameState, string> gsmap = {{startup, "startup"}, {play, "play"}};
+const map <StartupManagerState, string> smsmap = {{start, "start"}, {mapLoaded, "mapLoaded"}, {mapValidated, "mapValidated"}, {playersAdded, "playersAdded"}, {finishSMS, "finishSMS"}};
+const map <PlayManagerState, string> pmsmap = {{assignReinforcement,"assignReinforcement"},{issueOrders, "issueOrders"}, {executeOrders, "executeOrders"}, {win, "win"}, {finishPMS, "finishPMS"}};
 
 GameState gs;
 
@@ -30,17 +30,17 @@ class StartupManager {
             setSms(start);
             printSMS();
             cout << "Please enter an option" << "\n";
-            string input;
-            cin >> input;
+            string * input = new string();
+            cin >> *input;
             while (true) {
-                if (input == "loadmap") {
+                if (*input == "loadmap") {
                     cout << "Loading the map.\n";
                     mapLoad();
                     break;
                 }
                 else {
                     cout << "Invalid input, please enter a valid option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                 }
             }
         }
@@ -50,24 +50,24 @@ class StartupManager {
             setSms(mapLoaded);
             printSMS();
             cout << "Please enter an option" << "\n";
-            string input;
-            cin >> input;
+            string * input = new string ();
+            cin >> *input;
             while (true) {
-                if (input == "loadmap") {
+                if (*input == "loadmap") {
                     cout << "Loading the map.\n";
                     printSMS();
                     cout << "Please enter an option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                     // load map
                 }
-                else if (input == "validatemap") {
+                else if (*input == "validatemap") {
                     cout << "Validating the map." << "\n";
                     validateMap();
                     break;
                 }
                 else {
                     cout << "Invalid input, please enter a valid option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                 }
             }
         }
@@ -77,17 +77,17 @@ class StartupManager {
             setSms(mapValidated);
             printSMS();
             cout << "Please enter an option" << "\n";
-            string input;
-            cin >> input;
+            string * input= new string();
+            cin >> *input;
             while (true) {
-                if (input == "addplayer") {
+                if (*input == "addplayer") {
                     cout << "Adding player." << "\n";
                     addPlayers();
                     break;
                 }
                 else {
                     cout << "Invalid input, please enter a valid option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                 }
             }
         }
@@ -97,24 +97,24 @@ class StartupManager {
             setSms(playersAdded);
             printSMS();
             cout << "Please enter an option" << "\n";
-            string input;
-            cin >> input;
+            string *input = new string ();
+            cin >> *input;
             while (true) {
-                if (input == "addplayer") {
+                if (*input == "addplayer") {
                     cout << "Adding player." << "\n";
                     // load map
                     printSMS();
                     cout << "Please enter an option" << "\n";
-                    cin >> input;
+                    cin >> *input;
 
                 }
-                else if (input == "assigncountries") {
+                else if (*input == "assigncountries") {
                     cout << "Assigning countries" << "\n";
                     break;
                 }
                 else {
                     cout << "Invalid input, please enter a valid option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                 }
             }
             assignCountries();
@@ -143,17 +143,17 @@ class PlayManager {
             setPms(assignReinforcement);
             printPMS();
             cout << "Please enter an option" << "\n";
-            string input;
-            cin >> input;
+            string *input = new string ();
+            cin >> *input;
             while (true) {
-                if (input == "issueorder") {
+                if (*input == "issueorder") {
                     cout << "Issuing order." << "\n";
                     issueOrder();
                     break;
                 }
                 else {
                     cout << "Invalid input, please enter a valid option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                 }
             }
         }
@@ -220,29 +220,29 @@ class PlayManager {
             setPms(executeOrders);
             printPMS();
             cout << "Please enter an option" << "\n";
-            string input;
-            cin >> input;
+            string * input = new string ();
+            cin >> * input;
             while (true) {
-                if (input == "execorder") {
+                if (*input == "execorder") {
                     cout << "Executing order." << "\n";
                     // execute order
                     printPMS();
                     cout << "Please enter an option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                 }
-                else if (input == "endexecorders") {
+                else if (*input == "endexecorders") {
                     cout << "Ending executing orders." << "\n";
                     endExeOrders();
                     break;
                 }
-                else if (input == "win") {
+                else if (*input == "win") {
                     cout << "THIS IS A WIN!" << "\n";
                     wins();
                     break;
                 }
                 else {
                     cout << "Invalid input, please enter a valid option" << "\n";
-                    cin >> input;
+                    cin >> *input;
                 }
             }
         }
