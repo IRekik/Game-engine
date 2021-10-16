@@ -65,32 +65,47 @@ include CMakeFiles/Game_Engine.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Game_Engine.dir/flags.make
 
-CMakeFiles/Game_Engine.dir/main.cpp.obj: CMakeFiles/Game_Engine.dir/flags.make
-CMakeFiles/Game_Engine.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\isrek\CLionProjects\Game_Engine\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Game_Engine.dir/main.cpp.obj"
-	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Game_Engine.dir\main.cpp.obj -c C:\Users\isrek\CLionProjects\Game_Engine\main.cpp
+CMakeFiles/Game_Engine.dir/GameEngine.cpp.obj: CMakeFiles/Game_Engine.dir/flags.make
+CMakeFiles/Game_Engine.dir/GameEngine.cpp.obj: ../GameEngine.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\isrek\CLionProjects\Game_Engine\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Game_Engine.dir/GameEngine.cpp.obj"
+	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Game_Engine.dir\GameEngine.cpp.obj -c C:\Users\isrek\CLionProjects\Game_Engine\GameEngine.cpp
 
-CMakeFiles/Game_Engine.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game_Engine.dir/main.cpp.i"
-	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\isrek\CLionProjects\Game_Engine\main.cpp > CMakeFiles\Game_Engine.dir\main.cpp.i
+CMakeFiles/Game_Engine.dir/GameEngine.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game_Engine.dir/GameEngine.cpp.i"
+	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\isrek\CLionProjects\Game_Engine\GameEngine.cpp > CMakeFiles\Game_Engine.dir\GameEngine.cpp.i
 
-CMakeFiles/Game_Engine.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game_Engine.dir/main.cpp.s"
-	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\isrek\CLionProjects\Game_Engine\main.cpp -o CMakeFiles\Game_Engine.dir\main.cpp.s
+CMakeFiles/Game_Engine.dir/GameEngine.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game_Engine.dir/GameEngine.cpp.s"
+	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\isrek\CLionProjects\Game_Engine\GameEngine.cpp -o CMakeFiles\Game_Engine.dir\GameEngine.cpp.s
+
+CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.obj: CMakeFiles/Game_Engine.dir/flags.make
+CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.obj: ../GameEngineDriver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\isrek\CLionProjects\Game_Engine\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.obj"
+	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Game_Engine.dir\GameEngineDriver.cpp.obj -c C:\Users\isrek\CLionProjects\Game_Engine\GameEngineDriver.cpp
+
+CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.i"
+	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\isrek\CLionProjects\Game_Engine\GameEngineDriver.cpp > CMakeFiles\Game_Engine.dir\GameEngineDriver.cpp.i
+
+CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.s"
+	"D:\CLion 2021.2.1\mingw64\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\isrek\CLionProjects\Game_Engine\GameEngineDriver.cpp -o CMakeFiles\Game_Engine.dir\GameEngineDriver.cpp.s
 
 # Object files for target Game_Engine
 Game_Engine_OBJECTS = \
-"CMakeFiles/Game_Engine.dir/main.cpp.obj"
+"CMakeFiles/Game_Engine.dir/GameEngine.cpp.obj" \
+"CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.obj"
 
 # External object files for target Game_Engine
 Game_Engine_EXTERNAL_OBJECTS =
 
-Game_Engine.exe: CMakeFiles/Game_Engine.dir/main.cpp.obj
+Game_Engine.exe: CMakeFiles/Game_Engine.dir/GameEngine.cpp.obj
+Game_Engine.exe: CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.obj
 Game_Engine.exe: CMakeFiles/Game_Engine.dir/build.make
 Game_Engine.exe: CMakeFiles/Game_Engine.dir/linklibs.rsp
 Game_Engine.exe: CMakeFiles/Game_Engine.dir/objects1.rsp
 Game_Engine.exe: CMakeFiles/Game_Engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\isrek\CLionProjects\Game_Engine\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Game_Engine.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\isrek\CLionProjects\Game_Engine\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Game_Engine.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Game_Engine.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

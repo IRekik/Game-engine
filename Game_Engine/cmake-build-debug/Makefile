@@ -128,29 +128,53 @@ Game_Engine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/build
 .PHONY : Game_Engine/fast
 
-main.obj: main.cpp.obj
-.PHONY : main.obj
+GameEngine.obj: GameEngine.cpp.obj
+.PHONY : GameEngine.obj
 
 # target to build an object file
-main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/main.cpp.obj
-.PHONY : main.cpp.obj
+GameEngine.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/GameEngine.cpp.obj
+.PHONY : GameEngine.cpp.obj
 
-main.i: main.cpp.i
-.PHONY : main.i
+GameEngine.i: GameEngine.cpp.i
+.PHONY : GameEngine.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/main.cpp.i
-.PHONY : main.cpp.i
+GameEngine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/GameEngine.cpp.i
+.PHONY : GameEngine.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+GameEngine.s: GameEngine.cpp.s
+.PHONY : GameEngine.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/main.cpp.s
-.PHONY : main.cpp.s
+GameEngine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/GameEngine.cpp.s
+.PHONY : GameEngine.cpp.s
+
+GameEngineDriver.obj: GameEngineDriver.cpp.obj
+.PHONY : GameEngineDriver.obj
+
+# target to build an object file
+GameEngineDriver.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.obj
+.PHONY : GameEngineDriver.cpp.obj
+
+GameEngineDriver.i: GameEngineDriver.cpp.i
+.PHONY : GameEngineDriver.i
+
+# target to preprocess a source file
+GameEngineDriver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.i
+.PHONY : GameEngineDriver.cpp.i
+
+GameEngineDriver.s: GameEngineDriver.cpp.s
+.PHONY : GameEngineDriver.s
+
+# target to generate assembly for a file
+GameEngineDriver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Game_Engine.dir\build.make CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.s
+.PHONY : GameEngineDriver.cpp.s
 
 # Help Target
 help:
@@ -161,9 +185,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Game_Engine
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... GameEngine.obj
+	@echo ... GameEngine.i
+	@echo ... GameEngine.s
+	@echo ... GameEngineDriver.obj
+	@echo ... GameEngineDriver.i
+	@echo ... GameEngineDriver.s
 .PHONY : help
 
 

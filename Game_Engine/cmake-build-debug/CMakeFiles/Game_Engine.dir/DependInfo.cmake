@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/isrek/CLionProjects/Game_Engine/main.cpp" "C:/Users/isrek/CLionProjects/Game_Engine/cmake-build-debug/CMakeFiles/Game_Engine.dir/main.cpp.obj"
+  "C:/Users/isrek/CLionProjects/Game_Engine/GameEngine.cpp" "C:/Users/isrek/CLionProjects/Game_Engine/cmake-build-debug/CMakeFiles/Game_Engine.dir/GameEngine.cpp.obj"
+  "C:/Users/isrek/CLionProjects/Game_Engine/GameEngineDriver.cpp" "C:/Users/isrek/CLionProjects/Game_Engine/cmake-build-debug/CMakeFiles/Game_Engine.dir/GameEngineDriver.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

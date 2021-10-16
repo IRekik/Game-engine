@@ -3,4 +3,4 @@ project(Game_Engine)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Game_Engine Engine.cpp)
+add_executable(Game_Engine GameEngine.cpp GameEngine.h GameEngineDriver.cpp)
