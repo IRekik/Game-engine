@@ -1,9 +1,6 @@
-#ifndef GAMEENGINE_H
-#define GAMEENGINE_H
 #include <iostream>
 #include <map>
-#include <vector>
-#include <tuple>
+#include "CommandProcessor.h"
 
 using namespace std;
 
@@ -13,32 +10,15 @@ enum PlayManagerState {assignReinforcement, issueOrders, executeOrders, win, fin
 enum State {START, MAPLOADED, MAPVALIDATED, PLAYERADDED, ASSIGNREINFORCEMENT, ISSUEORDER, EXECUTEORDERS, WIN};
 enum possibleCommands {loadmap, validatemap, addplayer, gamestart, replay, quit};
 
+extern const map <GameState, string> gsmap;
+extern const map <StartupManagerState, string> smsmap;
+extern const map <PlayManagerState, string> pmsmap;
+
 extern GameState gs;
 
 extern State s;
 
 extern bool isGameOver;
-
-class Command {
-public:
-    Command(string c);
-    void saveEffect(string e);
-    string toString();
-private:
-    string command;
-    string effect;
-};
-
-class CommandProcessor{
-public:
-    string getCommand();
-    vector <Command> lc;
-    void showList();
-    bool validate(State st, string cmd);
-private:
-    string readCommand();
-    void saveCommand(string c);
-};
 
 class StartupManager {
     StartupManagerState sms;
@@ -49,7 +29,7 @@ class StartupManager {
         void mapLoad();
         void validateMap();
         void addPlayers() ;
-        void gameStart();
+        void assignCountries();
 };
 
 class PlayManager {
@@ -67,4 +47,3 @@ class PlayManager {
         void end();
 };
 
-#endif

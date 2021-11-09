@@ -10,76 +10,9 @@ GameState gs;
 
 State s;
 
-bool isGameOver = false;
-
 CommandProcessor cp;
 
-string CommandProcessor::readCommand() {
-    string commandstr;
-    getline(cin, commandstr);
-    return commandstr;
-}
-
-// void CommandProcessor::saveCommand(string c, string e) {
-void CommandProcessor::saveCommand(string c) {
-    Command cmd(c);
-    lc.push_back(cmd);
-}
-
-void CommandProcessor::showList() {
-    for (int i = 0; i < lc.size(); i ++) {
-        cout << lc[i].toString() << "\n";
-    }
-}
-
-string CommandProcessor::getCommand() {
-    string cmd;
-    cmd = readCommand();
-    saveCommand(cmd);
-    return cmd;
-}
-
-bool CommandProcessor::validate(State st, string cmd) {
-    string c = cmd.substr(0,cmd.find(' '));
-    if (c == "loadmap" && (st == START || st == MAPLOADED)) {
-        cout << "Valid command. " << "\n";
-        return true;
-    }
-    if (c == "validatemap" && st == MAPLOADED) {
-        cout << "Valid command. " << "\n";
-        return true;
-    }
-    if (c == "addplayer" && (st == MAPVALIDATED || st == PLAYERADDED)) {
-        cout << "Valid command. " << "\n";
-        return true;
-    }
-    if (c == "gamestart" && st == PLAYERADDED) {
-        cout << "Valid command. " << "\n";
-        return true;
-    }
-    if (c == "replay" && st == WIN) {
-        cout << "Valid command. " << "\n";
-        return true;
-    }
-    if (c == "quit" && st == WIN) {
-        cout << "Valid command. " << "\n";
-        return true;
-    }
-    cout << "Invalid input, please enter a valid option" << "\n";
-    return false;
-}
-
-Command::Command(string c) {
-    command = c;
-}
-
-void Command::saveEffect(string e) {
-    effect = e;
-}
-
-string Command::toString() {
-    return "command: " + command + ", effect: " + effect;
-}
+bool isGameOver = false;
 
 void StartupManager::printSMS() {
     cout << "The game is in " << gsmap.at(gs) << " state at the " << smsmap.at(sms) << " sub-state." << "\n";
@@ -96,11 +29,9 @@ void StartupManager::init () {
     cout << "Please enter an option" << "\n";
     string input = cp.getCommand();
     while (!cp.validate(s, input)) {
-        cp.lc.back().saveEffect("Error. Nothing happened.");
         input = cp.getCommand();
     }
     cout << "Loading the map.\n";
-    cp.lc.back().saveEffect("Loading the map.");
     mapLoad();
 }
 void StartupManager::mapLoad() {
@@ -110,24 +41,27 @@ void StartupManager::mapLoad() {
     s = MAPLOADED;
     printSMS();
     cout << "Please enter an option" << "\n";
-    string input = cp.getCommand();
-    while (!cp.validate(s,input) || input == "loadmap") {
-        if (input == "loadmap") {
+    string * input = new string ();
+    cin >> *input;
+    while (true) {
+        if (*input == "loadmap") {
             cout << "Loading the map.\n";
-            cp.lc.back().saveEffect("Loading the map");
             printSMS();
             cout << "Please enter an option" << "\n";
+            cin >> *input;
+            // load map
+        }
+        else if (*input == "validatemap") {
+            cout << "Validating the map." << "\n";
+            validateMap();
+            break;
         }
         else {
-            cp.lc.back().saveEffect("Error. Nothing happened.");
+            cout << "Invalid input, please enter a valid option" << "\n";
+            cin >> *input;
         }
-        input = cp.getCommand();
     }
-    if (input == "validatemap") {
-        cout << "Validating the map." << "\n";
-        cp.lc.back().saveEffect("Validating the map.");
-        validateMap();
-    }
+    delete input;
 }
 void StartupManager::validateMap() {
     cout << "\n";
@@ -136,14 +70,20 @@ void StartupManager::validateMap() {
     s = MAPVALIDATED;
     printSMS();
     cout << "Please enter an option" << "\n";
-    string input = cp.getCommand();
-    while (!cp.validate(s, input)) {
-        cp.lc.back().saveEffect("Error. Nothing happened.");
-        input = cp.getCommand();
+    string * input= new string();
+    cin >> *input;
+    while (true) {
+        if (*input == "addplayer") {
+            cout << "Adding player." << "\n";
+            addPlayers();
+            break;
+        }
+        else {
+            cout << "Invalid input, please enter a valid option" << "\n";
+            cin >> *input;
+        }
     }
-    cout << "Adding player." << "\n";
-    cp.lc.back().saveEffect("Adding player.");
-    addPlayers();
+    delete input;
 }
 void StartupManager::addPlayers() {
     cout << "\n";
@@ -152,26 +92,29 @@ void StartupManager::addPlayers() {
     s = PLAYERADDED;
     printSMS();
     cout << "Please enter an option" << "\n";
-    string input = cp.getCommand();
-    while (!cp.validate(s, input) || input == "addplayer" ) {
-        if (input == "addplayer") {
+    string *input = new string ();
+    cin >> *input;
+    while (true) {
+        if (*input == "addplayer") {
             cout << "Adding player." << "\n";
-            cp.lc.back().saveEffect("Adding player.");
             // add player
             printSMS();
             cout << "Please enter an option" << "\n";
+            cin >> *input;
+        }
+        else if (*input == "assigncountries") {
+            cout << "Assigning countries" << "\n";
+            assignCountries();
+            break;
         }
         else {
-            cp.lc.back().saveEffect("Error. Nothing happened.");
+            cout << "Invalid input, please enter a valid option" << "\n";
+            cin >> *input;
         }
-        input = cp.getCommand();
     }
-    cout << "Assigning countries" << "\n";
-    cp.lc.back().saveEffect("Assigning countries");
-    cp.showList();
-    gameStart();
+    delete input;
 }
-void StartupManager::gameStart() {
+void StartupManager::assignCountries() {
     cout << "\n";
     // assign countries
     setSms(finishSMS);
@@ -191,19 +134,20 @@ void PlayManager::init () {
     s = ASSIGNREINFORCEMENT;
     printPMS();
     cout << "Please enter an option" << "\n";
-    string input;
-    cin >> input;
+    string *input = new string ();
+    cin >> *input;
     while (true) {
-        if (input == "issueorder") {
+        if (*input == "issueorder") {
             cout << "Issuing order." << "\n";
             issueOrder();
             break;
         }
         else {
             cout << "Invalid input, please enter a valid option" << "\n";
-            cin >> input;
+            cin >> *input;
         }
     }
+    delete input;
 }
 void PlayManager::issueOrder(){
     cout << "\n";
@@ -212,26 +156,27 @@ void PlayManager::issueOrder(){
     s = ISSUEORDER;
     printPMS();
     cout << "Please enter an option" << "\n";
-    string input;
-    cin >> input;
+    string * input = new string ();
+    cin >> *input;
     while (true) {
-        if (input == "issueorder") {
+        if (*input == "issueorder") {
             cout << "Issuing order." << "\n";
             // issue orders
             printPMS();
             cout << "Please enter an option" << "\n";
-            cin >> input;
+            cin >> *input;
         }
-        else if (input == "endissueorders") {
+        else if (*input == "endissueorders") {
             cout << "Ending issue orders." << "\n";
             endIssueOrders();
             break;
         }
         else {
             cout << "Invalid input, please enter a valid option" << "\n";
-            cin >> input;
+            cin >> *input;
         }
     }
+    delete input;
 }
 void PlayManager::endIssueOrders() {
     cout << "\n";
@@ -240,29 +185,30 @@ void PlayManager::endIssueOrders() {
     s = EXECUTEORDERS;
     printPMS();
     cout << "Please enter an option" << "\n";
-    string input;
-    cin >> input;
+    string * input = new string ();
+    cin >> *input;
     while (true) {
-        if (input == "execorder") {
+        if (*input == "execorder") {
             cout << "Executing order." << "\n";
             exeOrder();
             break;
         }
-        else if (input == "endexecorders") {
+        else if (*input == "endexecorders") {
             cout << "Ending executing orders." << "\n";
             endExeOrders();
             break;
         }
-        else if (input == "win") {
+        else if (*input == "win") {
             cout << "THIS IS A WIN!" << "\n";
             wins();
             break;
         }
         else {
             cout << "Invalid input, please enter a valid option" << "\n";
-            cin >> input;
+            cin >> *input;
         }
     }
+    delete input;
 }
 void PlayManager::exeOrder() {
     cout << "\n";
@@ -271,31 +217,32 @@ void PlayManager::exeOrder() {
     s = EXECUTEORDERS;
     printPMS();
     cout << "Please enter an option" << "\n";
-    string input;
-    cin >> input;
+    string * input = new string ();
+    cin >> * input;
     while (true) {
-        if (input == "execorder") {
+        if (*input == "execorder") {
             cout << "Executing order." << "\n";
             // execute order
             printPMS();
             cout << "Please enter an option" << "\n";
-            cin >> input;
+            cin >> *input;
         }
-        else if (input == "endexecorders") {
+        else if (*input == "endexecorders") {
             cout << "Ending executing orders." << "\n";
             endExeOrders();
             break;
         }
-        else if (input == "win") {
+        else if (*input == "win") {
             cout << "THIS IS A WIN!" << "\n";
             wins();
             break;
         }
         else {
             cout << "Invalid input, please enter a valid option" << "\n";
-            cin >> input;
+            cin >> *input;
         }
     }
+    delete input;
 }
 void PlayManager::endExeOrders(){
     cout << "\n";
@@ -320,19 +267,26 @@ void PlayManager::wins() {
     s = WIN;
     printPMS();
     cout << "Please enter an option" << "\n";
-    string input = cp.getCommand();
-    while (cp.validate(s, input)) {
-        input = cp.getCommand();
+    string * input = new string ();
+    cin >> *input;
+    while (true) {
+        if (*input == "end") {
+            cout << "Ending the game. See you soon!" << "\n";
+            end();
+            break;
+        }
+        else if (*input == "play") {
+            cout << "Want to replay? Restarting the game!" << "\n";
+            gs = startup;
+            play();
+            break;
+        }
+        else {
+            cout << "Invalid input, please enter a valid option" << "\n";
+            cin >> *input;
+        }
     }
-    if (input == "end") {
-        cout << "Ending the game. See you soon!" << "\n";
-        end();
-    }
-    else if (input == "play") {
-        cout << "Want to replay? Restarting the game!" << "\n";
-        gs = startup;
-        play();
-    }
+    delete input;
 }
 void PlayManager::play() {
     cout << "Game is now restarting. Please wait." << "\n\n";
@@ -340,3 +294,5 @@ void PlayManager::play() {
 void PlayManager::end() {
     isGameOver = true;
 }
+
+
