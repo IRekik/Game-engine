@@ -1,9 +1,11 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
+#include "Player.h"
 #include <iostream>
 #include <map>
 #include <vector>
 #include <tuple>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -12,10 +14,6 @@ enum StartupManagerState {start, mapLoaded,mapValidated, playersAdded, finishSMS
 enum PlayManagerState {assignReinforcement, issueOrders, executeOrders, win, finishPMS};
 enum State {START, MAPLOADED, MAPVALIDATED, PLAYERADDED, ASSIGNREINFORCEMENT, ISSUEORDER, EXECUTEORDERS, WIN};
 enum possibleCommands {loadmap, validatemap, addplayer, gamestart, replay, quit};
-
-extern GameState gs;
-
-extern State s;
 
 extern bool isGameOver;
 
@@ -46,9 +44,9 @@ class StartupManager {
         void printSMS();
         void setSms(StartupManagerState s);
         void init ();
-        void mapLoad();
+        void mapLoad(string arg);
         void validateMap();
-        void addPlayers() ;
+        void addPlayers(string arg);
         void gameStart();
 };
 

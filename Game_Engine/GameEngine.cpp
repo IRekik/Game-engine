@@ -6,11 +6,18 @@ const map <GameState, string> gsmap = {{startup, "startup"}, {play, "play"}};
 const map <StartupManagerState, string> smsmap = {{start, "start"}, {mapLoaded, "mapLoaded"}, {mapValidated, "mapValidated"}, {playersAdded, "playersAdded"}, {finishSMS, "finishSMS"}};
 const map <PlayManagerState, string> pmsmap = {{assignReinforcement,"assignReinforcement"},{issueOrders, "issueOrders"}, {executeOrders, "executeOrders"}, {win, "win"}, {finishPMS, "finishPMS"}};
 
+bool isGameOver = false;
+
+vector<Player*> listOfPlayers;
+vector<Player*> orderedListOfPlayers;
+
+Deck * deck= new Deck(60);
+
+Map * loader;
+
 GameState gs;
 
 State s;
-
-bool isGameOver = false;
 
 CommandProcessor cp;
 
@@ -99,22 +106,28 @@ void StartupManager::init () {
         cp.lc.back().saveEffect("Error. Nothing happened.");
         input = cp.getCommand();
     }
-    cout << "Loading the map.\n";
-    cp.lc.back().saveEffect("Loading the map.");
-    mapLoad();
+    string arg = input.substr(input.find(' ') + 1, input.length()-1);
+    cout << "Loading the map " + arg << "\n";
+    cp.lc.back().saveEffect("Loading the map " + arg);
+    mapLoad(arg);
 }
-void StartupManager::mapLoad() {
+void StartupManager::mapLoad(string arg) {
     cout << "\n";
+    // load map
+    loader = new Map(arg);
     // load map
     setSms(mapLoaded);
     s = MAPLOADED;
     printSMS();
     cout << "Please enter an option" << "\n";
     string input = cp.getCommand();
-    while (!cp.validate(s,input) || input == "loadmap") {
+    while (!cp.validate(s,input) || input.substr(0,input.find(' ')) == "loadmap") {
         if (input == "loadmap") {
-            cout << "Loading the map.\n";
-            cp.lc.back().saveEffect("Loading the map");
+            cout << "Loading the map" + arg+ "\n";
+            // loadmap
+            loader = new Map(arg);
+            // loadmap
+            cp.lc.back().saveEffect("Loading the map " + arg + "\n");
             printSMS();
             cout << "Please enter an option" << "\n";
         }
@@ -132,6 +145,8 @@ void StartupManager::mapLoad() {
 void StartupManager::validateMap() {
     cout << "\n";
     // validate map
+    loader->validate();
+    // validatemap
     setSms(mapValidated);
     s = MAPVALIDATED;
     printSMS();
@@ -141,23 +156,29 @@ void StartupManager::validateMap() {
         cp.lc.back().saveEffect("Error. Nothing happened.");
         input = cp.getCommand();
     }
-    cout << "Adding player." << "\n";
-    cp.lc.back().saveEffect("Adding player.");
-    addPlayers();
+    string arg = input.substr(input.find(' ') + 1, input.length()-1);
+    cout << "Adding player " + arg << "\n";
+    cp.lc.back().saveEffect("Adding player " + arg);
+    addPlayers(arg);
 }
-void StartupManager::addPlayers() {
+void StartupManager::addPlayers(string arg) {
     cout << "\n";
-    // load map
+    // add player
+    listOfPlayers.push_back(new Player(arg));
+    // add player
     setSms(playersAdded);
     s = PLAYERADDED;
     printSMS();
     cout << "Please enter an option" << "\n";
     string input = cp.getCommand();
-    while (!cp.validate(s, input) || input == "addplayer" ) {
-        if (input == "addplayer") {
-            cout << "Adding player." << "\n";
-            cp.lc.back().saveEffect("Adding player.");
+    cout << input << "\n";
+    while (!cp.validate(s, input) || input.substr(0,input.find(' ')) == "addplayer" ) {
+        if (input.substr(0,input.find(' ')) == "addplayer") {
+            cout << "Adding player " + input.substr(input.find(' ') + 1, input.length()-1) << "\n";
+            cp.lc.back().saveEffect("Adding player "+ input.substr(input.find(' ') + 1, input.length()-1));
             // add player
+            listOfPlayers.push_back(new Player(input.substr(input.find(' ') + 1, input.length()-1)));
+            //
             printSMS();
             cout << "Please enter an option" << "\n";
         }
@@ -168,12 +189,44 @@ void StartupManager::addPlayers() {
     }
     cout << "Assigning countries" << "\n";
     cp.lc.back().saveEffect("Assigning countries");
-    cp.showList();
     gameStart();
 }
 void StartupManager::gameStart() {
     cout << "\n";
-    // assign countries
+    // gamestart
+    // distribute territories
+    int numOfPlayers = listOfPlayers.size();
+    int mapSize = loader->getSize();
+    int division = mapSize / numOfPlayers;
+    int remainder = mapSize % numOfPlayers;
+    for (int i = 0; i < numOfPlayers; i++) {
+        for (int j = 0; j < remainder; j++) {
+            listOfPlayers.at(i)->playerTerritories.push_back(loader->getNode(j + i * division));
+        }
+    }
+    // determine order
+    int x;
+    map <int, string> pipi;
+    for (int i = 0; i < numOfPlayers; i++) {
+        x = rand() % numOfPlayers;
+        if (pipi[x] == "") {
+            orderedListOfPlayers.push_back(listOfPlayers.at(x));
+            pipi[x] = listOfPlayers.at(x)->getName();
+        }
+        else {
+            i--;
+        }
+    }
+    // give armies
+    for (int i = 0; i < orderedListOfPlayers.size(); i++) {
+        orderedListOfPlayers.at(i)->setReinforcementPool(50);
+    }
+    // make each play draw
+    for (int i = 0; i < orderedListOfPlayers.size(); i++) {
+        orderedListOfPlayers.at(i)->playerHand.add(deck->draw());
+        orderedListOfPlayers.at(i)->playerHand.add(deck->draw());
+    }
+    // gamestart
     setSms(finishSMS);
     gs = play;
     cout << "End of startup phase." << "\n\n\n";
